@@ -11,7 +11,7 @@ def get_file_path(symbol=None):
     if not symbol:
         return None
 
-    file_path = "{}/daily_data_files/{}.csv".format(
+    file_path = "{}/daily_data_files/{}_daily.csv".format(
         os.path.dirname(os.path.abspath(__file__)), symbol
     )
     # return file_path
