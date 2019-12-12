@@ -1,7 +1,7 @@
 *.csv
 *.zip
 .vscode
-.venv
+.crypto_data
 *.pyc
 .DS_STORE
 __pycache__/
