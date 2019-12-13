@@ -7,15 +7,20 @@ import csv_utils
 
 def convert_single_file(old_zip_path, new_zip_dir, header_match):
     # unzip the old file
+
     with zipfile.ZipFile(old_zip_path, "r") as zip_file:
         zip_file.extractall(new_zip_dir)
-
     # get the old data
+
     tmp_csv_filename = old_zip_path.split("/")[-1].split(".zip")[0]
+
     new_file_path = os.path.abspath("{}/{}".format(new_zip_dir, tmp_csv_filename))
 
+    # return new_file_path
     with open(new_file_path, "r") as my_file:
-        reader = csv.DictReader(my_file, delimiter=",")
+        reader = csv.reader(my_file)
+        #skip the header
+        next(reader)
         old_csv_data = list(reader)
         new_file_name = my_file.name.split("/")[-1]
 
@@ -45,16 +50,19 @@ def convert_single_file(old_zip_path, new_zip_dir, header_match):
     print("writing new file at: ", standard_zipped_location)
     # removing the temp csv
     print("removing: {}".format(new_csv_path))
-    os.remove(new_csv_path)
+    # os.remove(new_csv_path)
 
 
-def convert_files(old_zip_path, new_zip_path, header_match):
+def convert_files(old_zip_dir, new_zip_dir, header_match):
     # list all the files in the dir
+    if not os.path.exists(new_zip_dir):
+        os.makedirs(new_zip_dir)
 
-    for zipped_file in os.listdir(old_zip_path):
+    for zipped_file in os.listdir(old_zip_dir):
         if zipped_file.endswith(".zip"):
-            single_zippled_path = "{}/{}".format(os.path.abspath(old_zip_path), zipped_file)
-            convert_single_file(single_zippled_path, new_zip_path, header_match)
+            single_zippled_path = "{}/{}".format(os.path.abspath(old_zip_dir), zipped_file)
+            res = convert_single_file(single_zippled_path, new_zip_dir, header_match)
+            # print(res)
 
 
 if __name__ == "__main__":
@@ -64,8 +72,13 @@ if __name__ == "__main__":
     # header_match = constants.CSV_2019_HEADER_MATCHING
 
     # 2018 files
-    old_zip_path = "./crypto_data/2017_zipped"
-    new_zip_path = "./crypto_data/2017_standard"
+    old_zip_path = "./crypto_data/2017_zipped/"
+    # print(old_zip_path)
+
+    new_zip_dir = "./crypto_data/2017_standard/"
     header_match = constants.OLD_2017_HEADER_MATCHING
 
-    convert_files(old_zip_path, new_zip_path, header_match)
+    res = convert_files(old_zip_path, new_zip_dir, header_match)
+
+
+    print(res)

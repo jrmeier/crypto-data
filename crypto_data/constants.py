@@ -17,14 +17,15 @@ CSV_2019_HEADER_MATCHING = {
     "volume": "volume",
 }
 
+# ,Date,Open,High,Low,Close,Volume,price_change,price_change_percent,weighted_avg_price,prev_close_price,last_qty,bid_price,ask_pri
 
 OLD_2017_HEADER_MATCHING = {
-    "date": "Date",
-    "open": "Open",
-    "close": "Close",
-    "high": "High",
-    "low": "Low",
-    "volume": "Volume",
+    "date": 1,
+    "open": 2,
+    "close": 5,
+    "high": 3,
+    "low": 4,
+    "volume": 6,
 }
 
 BINANCE_API_CSV_HEADER_MATCHING = {
