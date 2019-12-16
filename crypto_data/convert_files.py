@@ -5,14 +5,14 @@ import os
 import csv_utils
 
 
-def convert_single_file(old_zip_path, new_zip_dir, header_match):
+def convert_single_file(old_zip_dir, new_zip_dir, header_match):
     # unzip the old file
 
-    with zipfile.ZipFile(old_zip_path, "r") as zip_file:
+    with zipfile.ZipFile(old_zip_dir, "r") as zip_file:
         zip_file.extractall(new_zip_dir)
     # get the old data
 
-    tmp_csv_filename = old_zip_path.split("/")[-1].split(".zip")[0]
+    tmp_csv_filename = old_zip_dir.split("/")[-1].split(".zip")[0]
 
     new_file_path = os.path.abspath("{}/{}".format(new_zip_dir, tmp_csv_filename))
 
@@ -50,7 +50,7 @@ def convert_single_file(old_zip_path, new_zip_dir, header_match):
     print("writing new file at: ", standard_zipped_location)
     # removing the temp csv
     print("removing: {}".format(new_csv_path))
-    # os.remove(new_csv_path)
+    os.remove(new_csv_path)
 
 
 def convert_files(old_zip_dir, new_zip_dir, header_match):
@@ -58,27 +58,25 @@ def convert_files(old_zip_dir, new_zip_dir, header_match):
     if not os.path.exists(new_zip_dir):
         os.makedirs(new_zip_dir)
 
+    # for zipped_file in ["BTCUSDT.csv.zip"]:
     for zipped_file in os.listdir(old_zip_dir):
+        # print(zipped_file)
         if zipped_file.endswith(".zip"):
             single_zippled_path = "{}/{}".format(os.path.abspath(old_zip_dir), zipped_file)
             res = convert_single_file(single_zippled_path, new_zip_dir, header_match)
-            # print(res)
+            print(res)
 
 
 if __name__ == "__main__":
-    # 2019 files
-    # old_zip_path = "./crypto_data/2019_zipped_sample"
-    # new_zip_path = "./crypto_data/2019_standard"
-    # header_match = constants.CSV_2019_HEADER_MATCHING
+    # 2019 files local
+    # old_zip_dir = "/Users/jedmeier/lol/zipped"
+    # new_zip_dir = "/Users/jedmeier/2019_standard"
 
-    # 2018 files
-    old_zip_path = "./crypto_data/2017_zipped/"
-    # print(old_zip_path)
-
-    new_zip_dir = "./crypto_data/2017_standard/"
-    header_match = constants.OLD_2017_HEADER_MATCHING
-
-    res = convert_files(old_zip_path, new_zip_dir, header_match)
+    # 2019 file server
+    old_zip_dir = "/home/jedmeier/zipped"
+    new_zip_dir = "/var/www/static/current/zipped"
+    header_match = constants.CSV_2019_HEADER_MATCHING
+    res = convert_files(old_zip_dir, new_zip_dir, header_match)
 
 
     print(res)
