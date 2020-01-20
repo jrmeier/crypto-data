@@ -4,7 +4,7 @@ This is for storing minute by minute trading data, in a way that's accurate but 
 Pull requests are welcome! If you make any improvements, please share!
 
 # Goals
-- No database (since it's read only, I don't think it really matters)
+- No database
 - Fast 
 - Accurate
 
