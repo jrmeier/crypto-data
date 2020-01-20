@@ -25,6 +25,7 @@ The next thing you'll want to do is set up your cron jobs to run on every minute
 This pulls data from a the binance api, but it could easily be adapted for any others. It's set up to only save the most important data that's consumed by [fast_trade](https://github.com/jrmeier/fast_trade), which does the backtesting. These files are set up to save the date, close, open, high, low, volume.
 
 Example file:
+
 `
 date,close,open,high,low,volume
 1579392120515,0.00242400,0.00252600,0.00254600,0.00241200,4900945.00000000
