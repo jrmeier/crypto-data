@@ -19,10 +19,16 @@ cd ./crypto-data
 python -m venv .crypto-data
 pip install -r requirements.txt
 `
-The next thing you'll want to do is set up your cron jobs to run on every minute for `minute_cron.py` and daily for `daily_cron.py`. In these files, you'll need to set the location to save your daily csvs and the zipped files in their respective files.
 
 # Usage
+
+The next thing you'll want to do is set up your cron jobs to run on every minute for `minute_cron.py` and daily for `daily_cron.py`. In these files, you'll need to set the location to save your daily csvs and the zipped files in their respective files.
+
+The daily_cron.py runs daily and opens the existing file if it exists, then it adds the daily csv file, then deletes the _daily csv file and zips the new archive.
+
 This pulls data from a the binance api, but it could easily be adapted for any others. It's set up to only save the most important data that's consumed by [fast_trade](https://github.com/jrmeier/fast_trade), which does the backtesting. These files are set up to save the date, close, open, high, low, volume.
+
+Check the [minute_cron.py](
 
 Example file:
 
